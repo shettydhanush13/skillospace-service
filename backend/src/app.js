@@ -1,8 +1,19 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 
 const app = express();
+const routes = require('./routes');
+const { middleware, errorHandler } = require('./core');
 
-app.get('/', (req, res) => res.send("backend server"));
+middleware(app)
+
+app.use('/api', routes);
+
+app.all('*', (req, res) => {
+    return errorHandler(
+        { message: 'Access denied.', statusCode: 403 },
+        req,
+        res
+    );
+});
 
 module.exports = app;
