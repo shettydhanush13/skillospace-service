@@ -19,5 +19,13 @@ module.exports = {
         client.release();
       });
     });
+  },
+  updateDB : query => {
+    return new Promise((resolve, reject) => {
+      pool.query(query ,(error, results) => {
+      if (error) reject(error);
+        else resolve(results);
+      })
+    });
   }
 };
