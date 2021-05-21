@@ -3,8 +3,10 @@ const express = require('express');
 const app = express();
 const routes = require('./routes');
 const { middleware, errorHandler } = require('./core');
+const { postgres } = require("./db")
 
 middleware(app)
+postgres.test();
 
 app.use('/api', routes);
 
