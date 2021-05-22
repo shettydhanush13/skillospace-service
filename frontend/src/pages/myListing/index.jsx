@@ -2,13 +2,13 @@ import React from 'react';
 import Header from "../../components/header"
 import "./styles.css"
 
-const Home = () => {
+const MyListing = () => {
 
     return (
         <div className='home-container'>
-            <Header page="all-listing"/>
+            <Header page="my-listing"/>
         </div>
     );
 }
 
-export default Home;
+export default MyListing;

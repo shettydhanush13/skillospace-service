@@ -1,7 +1,8 @@
 import React, { useState, Suspense } from 'react';
-import "./styles.css"
 import RegisterForm from "../../components/loginForm"
 import ErrorBoundary from "../../errorBoundary"
+import Header from "../../components/header"
+import "./styles.css"
 
 const Register = () => {
 
@@ -12,6 +13,7 @@ const Register = () => {
 	return ( 
 		<Suspense fallback={<div>error occured</div>}>
 			<ErrorBoundary>
+			    <Header page="register"/>
 				<section className='container'>
 					<ul className='options' onClick={handleClick}>
 						<li id="sign-in" className={option === "sign-in" ? 'active' : ''}>Sign in</li>
