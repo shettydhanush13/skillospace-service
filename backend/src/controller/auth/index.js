@@ -10,7 +10,7 @@ module.exports = {
             const { username, email, password } = req.body
             await updateDB(generateQuery.createUserTable())
             await updateDB(await generateQuery.insertUser(username, email, password))
-            res.json({ message: "signup successfull" });
+            res.json({ message: "signup successful" });
         } catch(err) {
             res.status(400).json({ message: err.stack });
         }
@@ -45,7 +45,7 @@ module.exports = {
             const validation = validateTokenPayload(req.body)
             if(validation.error) return res.status(500).json({ message: validation.message });
             await updateDB(generateQuery.deleteToken(req.body.token))
-            res.json({ message: "logout successfull" });
+            res.json({ message: "logout successful" });
         } catch(err) {
             res.status(400).json({ message: err.stack });
         }
