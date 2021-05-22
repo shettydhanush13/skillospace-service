@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:600,700&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Nunito, Roboto, Arial, sans-serif;
+  background: #4D6FE5;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
