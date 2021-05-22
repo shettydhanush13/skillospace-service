@@ -8,7 +8,7 @@ module.exports = {
             await updateDB(generateQuery.createListingTable())
             await updateDB(generateQuery.addListing(username, product_title, product_description, quantity, price))
             res.status(200).send({ message : "listing created" })
-        } catch {
+        } catch(err) {
             next({status : 500, message : err.stack })
         }
     },
@@ -16,7 +16,7 @@ module.exports = {
         try {
             const response = await updateDB(generateQuery.getAllListing())
             res.status(200).send({ items : response.rows })
-        } catch {
+        } catch(err) {
             next({status : 500, message : err.stack })
         }
     },
@@ -25,7 +25,7 @@ module.exports = {
             const { username } = req.body
             const response = await updateDB(generateQuery.getMyListing(username))
             res.status(200).send({ items : response.rows })
-        } catch {
+        } catch(err) {
             next({status : 500, message : err.stack })
         }
     },
@@ -36,7 +36,7 @@ module.exports = {
             const response = await updateDB(generateQuery.updateListing(listingId, username, quantity, price))
             if(response.rows.length === 0) return next({status : 401, message : "unable to update this listing" })
             res.status(200).send({ items : "update successful" })
-        } catch {
+        } catch(err) {
             next({status : 500, message : err.stack })
         }
     },
@@ -47,7 +47,7 @@ module.exports = {
             const response = await updateDB(generateQuery.deleteListing(listingId, username))
             if(response.rows.length === 0) return next({status : 401, message : "unable to delete this listing" })
             res.status(200).send({ items : "delete successful" })
-        } catch {
+        } catch(err) {
             next({status : 500, message : err.stack })
         }
     }

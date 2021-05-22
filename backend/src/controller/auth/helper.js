@@ -7,7 +7,7 @@ const encode = async (password) => await bcrypt.hash(password, 10)
 
 const compare = async (password, hash) => await bcrypt.compare(password, hash)
 
-const generateAccessToken = user => jwt.sign(user, accessTokenSecret, { expiresIn : "300s" })
+const generateAccessToken = user => jwt.sign(user, accessTokenSecret, { expiresIn : "3000s" })
 
 const generateRefreshToken = user => jwt.sign(user, refreshTokenSecret)
 

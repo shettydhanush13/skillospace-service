@@ -2,7 +2,7 @@ import React, { useState, Suspense } from 'react';
 import RegisterForm from "../../components/loginForm"
 import ErrorBoundary from "../../errorBoundary"
 import Header from "../../components/header"
-import "./styles.css"
+import "./styles.scss"
 
 const Register = () => {
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Login, Signup } from "../../functions"
+import { useHistory } from "react-router-dom";
 
 const RegisterForm = ({ option }) => {
-
+    let history = useHistory();
     const handleSumbit = evt => {
         evt.preventDefault()
         const email = document.getElementById("email").value
@@ -15,7 +17,10 @@ const RegisterForm = ({ option }) => {
             const username = document.getElementById("username").value
             body = {...body, username }
         } 
-        console.log(body)
+        option === "sign-up" ?
+        Signup(body).then(res => console.log(res)).catch(err => console.log(err))
+        :
+        Login(body).then(() => history.push("/")).catch(err => console.log(err))
     }
 
 	return (
@@ -31,7 +36,8 @@ const RegisterForm = ({ option }) => {
 }
 
 RegisterForm.propTypes = {
-    option : PropTypes.string
+    option : PropTypes.string,
+    history : PropTypes.object
 }
 
 export default RegisterForm
