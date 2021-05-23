@@ -8,23 +8,33 @@ import "./styles.scss"
 const Home = () => {
 
     const [ listing, setListing ] = useState([])
+    const [ isLoading, setIsLoading ] = useState(true)
 
-    useEffect(() => {
+    useEffect(() => getData(), [])
+
+    const getData = () => {
         GetAllListing()
-        .then(res => setListing(res.items))
-        .catch(err => console.log(err))
-    }, [])
+        .then(res => {
+            setListing(res.items)
+            setIsLoading(false)
+        }).catch(err => console.log(err))
+    }
+
+    const handleCreate = reload => {
+        if(reload) {
+            setIsLoading(true)
+            getData()
+        }
+    }
 
     return (
         <div className='home-container'>
-            <Header page="all-listing"/>
-            {listing.length === 0 ?
+            <Header page="all-listing" createListing={handleCreate}/>
+            {isLoading ?
                 <Loader/>
                 :
                 <section className="listing-container">
-                    {listing.map((list) => (
-                        <ListingCard key={list.id} list={list} page="all-listing"/>
-                    ))}
+                    {listing.map(list => <ListingCard key={list.id} list={list} page="all-listing"/>)}
                 </section>
             }
         </div>

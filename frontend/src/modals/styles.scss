@@ -1,0 +1,54 @@
+
+.modalWrapper {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	z-index: 222222;
+	background: rgba(0,0,0,0.75);
+	display: flex;
+	align-items: center;
+	top: 0;
+	left: 0;
+  p, h2 {
+    color: #000;
+    text-align: center;
+  }
+}
+.center {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	z-index: 999;
+	background-color: #000;
+}
+.conf-modal {
+	width: max-content;
+	min-width: 30vw;
+	max-width: 80%;
+	height: fit-content;
+	padding: 2vw;
+	background-color: #fafafa;
+	border-radius: 5px;
+	box-shadow: 0 12px 36px 16px rgba(0, 0, 0, 0.24);
+	box-shadow: 0 12px 36px 16px rgba(0, 0, 0, 0.24);
+	animation: fromBottom 0.5s;
+  @keyframes fromBottom {
+    from {
+      transform: translateY(90vh);
+    }
+    to {
+      transform: translateY(0vh);
+    }
+  }
+}
+.modal-footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  p{
+    cursor: pointer;
+  }
+}
