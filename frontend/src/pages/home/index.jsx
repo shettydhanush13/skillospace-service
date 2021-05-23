@@ -33,9 +33,12 @@ const Home = () => {
             {isLoading ?
                 <Loader/>
                 :
+                <>
+                <h1>ALL LISTINGS</h1>
                 <section className="listing-container">
                     {listing.map(list => <ListingCard key={list.id} list={list} page="all-listing"/>)}
                 </section>
+                </>
             }
         </div>
     );

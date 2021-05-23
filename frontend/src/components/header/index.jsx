@@ -41,8 +41,8 @@ const Header = ({ page, createListing }) => {
         <header>
             {createModal && <CreateListingModal closeModal={handleModalClose}/>}
             <nav className='header-links'>
-                {page !== "register" &&<button  onClick={handleModalOpen}>Create Listing</button>}
-                <Link to={`/${page === "all-listing" ? "my-listing" : ""}`}>{page === "all-listing" ? "My Listings" : "All Listing"}</Link>
+                <Link to={`/${page === "all-listing" ? "my-listing" : ""}`}>{page === "all-listing" ? "View My Listings" : "View All Listing"}</Link>
+                {page !== "register" &&<button  onClick={handleModalOpen}>+ Create New Listing</button>}
                 {page !== "register" && <button  onClick={handleRegister}>{authenicated ? "Sign Out" : "Sign In"}</button>}
             </nav>
         </header>

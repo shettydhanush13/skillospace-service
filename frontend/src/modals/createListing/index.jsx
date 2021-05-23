@@ -1,15 +1,19 @@
 import React from "react"
 import PropTypes from 'prop-types';
-import { CreateListing } from "../../functions"
+import { CreateListing, Token } from "../../functions"
 import { CreateForm } from "../../components/forms"
+import { useHistory } from "react-router-dom"
 import "../styles.scss"
 
 const CreateListingModal = ({ closeModal }) => {
+    
+    const history = useHistory()
 
     const handleClose = () => closeModal(false)
 
     const handleCreate = (e) => {
         e.preventDefault()
+        const token = localStorage.getItem("accessToken")
         const quantity = document.getElementById("quantity").value
         const price = document.getElementById("price").value
         const product_title = document.getElementById("name").value
@@ -20,9 +24,15 @@ const CreateListingModal = ({ closeModal }) => {
             quantity,
             price
         }
-        CreateListing(body)
+        CreateListing(body, token)
         .then(() => closeModal(true))
-        .catch(err => console.log(err))
+        .catch(err => {
+            if(err.status === 401){
+                Token(history)
+                .then(() => handleCreate(e))
+                .catch(err => console.log(err))
+            }
+        })
     }
 
     return (

@@ -1,16 +1,25 @@
 import React from "react"
 import PropTypes from 'prop-types';
-import { DeleteListing } from "../../functions"
+import { DeleteListing, Token } from "../../functions"
+import { useHistory } from "react-router-dom";
 import "../styles.scss"
 
 const ConfirmationModal = ({ closeModal, id }) => {
 
     const handleClose = () => closeModal(false)
+    const history = useHistory()
 
     const handleDelete = () => {
-        DeleteListing(id)
+        const token = localStorage.getItem("accessToken")
+        DeleteListing(id, token)
         .then(() => closeModal(true))
-        .catch(err => console.log(err))
+        .catch(err => {
+            if(err.status === 401){
+                Token(history)
+                .then(() => handleDelete())
+                .catch(err => console.log(err))
+            }
+        })
     }
 
     return (

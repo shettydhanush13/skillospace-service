@@ -5,6 +5,6 @@ export const GetAllListing = () => {
     return new Promise((resolve, reject) => {
         axios.get(`${config.baseUrl}/listing`)
         .then((res) => resolve(res.data))
-        .catch((err) => reject(err))
+        .catch((err) => reject(err.response))
     });
 }

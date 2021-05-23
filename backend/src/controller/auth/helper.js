@@ -16,7 +16,8 @@ const verifyRefreshToken = (refreshToken) => {
         jwt.verify(refreshToken, config.refreshTokenSecret, (err, user) => {
             if(err) reject({ message: "not authenticated" })
             else{
-                const accessToken = generateAccessToken(user);
+                const {id, user_name, password, email} = user
+                const accessToken = generateAccessToken({id, user_name, password, email});
                 resolve({accessToken})
             }
         })

@@ -1,8 +1,7 @@
 import axios from "axios";
 import config from "../../config"
 
-export const GetMyListing = () => {
-    const token = localStorage.getItem("accessToken")
+export const GetMyListing = (token) => {
     return new Promise((resolve, reject) => {
         axios.get(`${config.baseUrl}/listing/myListing`, {
             headers: {
@@ -10,6 +9,6 @@ export const GetMyListing = () => {
             }
           })
         .then((res) => resolve(res.data))
-        .catch((err) => reject(err))
+        .catch((err) => reject(err.response))
     });
 }

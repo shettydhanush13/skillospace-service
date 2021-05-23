@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
     const token = auth.split(" ")[1]
     const tokenStatus = await verifyAccessToken(token)
     if(tokenStatus.error){
-        res.status(401).send({ message  : tokenStatus.message })
+        res.status(401).send({ status : 401, message  : tokenStatus.message })
     } else {
         const username = tokenStatus.user.user_name
         req.body.username = username;

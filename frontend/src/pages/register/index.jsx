@@ -1,10 +1,10 @@
-import React, { useState, Suspense } from 'react';
-import { RegisterForm } from "../../components/forms"
+import React, { useState, Suspense, lazy } from 'react';
 import { Login, Signup } from "../../functions"
 import { useHistory } from "react-router-dom";
 import ErrorBoundary from "../../errorBoundary"
-import Header from "../../components/header"
 import "./styles.scss"
+const Header =  lazy(() => import("../../components/header"))
+const RegisterForm =  lazy(() => import("../../components/forms/loginForm")) 
 
 const Register = () => {
 

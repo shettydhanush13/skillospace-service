@@ -1,8 +1,7 @@
 import axios from "axios";
 import config from "../../config"
 
-export const CreateListing = (body) => {
-    const token = localStorage.getItem("accessToken")
+export const CreateListing = (body, token) => {
     return new Promise((resolve, reject) => {
         axios.post(`${config.baseUrl}/listing`, body, {
             headers: {
@@ -10,6 +9,6 @@ export const CreateListing = (body) => {
             }
           })
         .then((res) => resolve(res.data))
-        .catch((err) => reject(err))
+        .catch((err) => reject(err.response))
     });
 }

@@ -11,12 +11,13 @@ const ListingCard = ({ list, page, deleteListing, editListing }) => {
         <>
             <div className="product-card">
                 <div className="product-details">
-                    <h4>{list.product_title}</h4>
+                    <h4>#{list.id} - {list.product_title}</h4>
                     {page === "my-listing" && <div className="actions">
                         <span onClick={handleEdit}>Edit</span>
                         <span onClick={handleDelete}>Delete</span>
                     </div>}
                     <p>{list.product_description}</p>
+                    {page === "all-listing" &&<p>created by   @{list.user_name}</p>}
                     <div className="product-bottom-details">
                         <div className="product-price">₹{list.price}</div>
                         <div className="product-qunatity">Quantity : {list.quantity}</div>
@@ -37,6 +38,7 @@ ListingCard.propTypes = {
         product_description : PropTypes.string,
         quantity : PropTypes.string,
         price : PropTypes.string,
+        user_name : PropTypes.string
     })
 }
 

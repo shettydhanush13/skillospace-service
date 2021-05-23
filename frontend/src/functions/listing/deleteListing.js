@@ -1,8 +1,7 @@
 import axios from "axios";
 import config from "../../config"
 
-export const DeleteListing = id => {
-    const token = localStorage.getItem("accessToken")
+export const DeleteListing = (id, token) => {
     return new Promise((resolve, reject) => {
         axios.delete(`${config.baseUrl}/listing/${id}`, {
             headers: {
@@ -10,6 +9,6 @@ export const DeleteListing = id => {
             }
           })
         .then((res) => resolve(res.data))
-        .catch((err) => reject(err))
+        .catch((err) => reject(err.response))
     });
 }
