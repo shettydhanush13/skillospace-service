@@ -2,7 +2,7 @@ import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { GetAllListing } from "../../functions"
 import ErrorBoundary from "../../errorBoundary"
 import "./styles.scss"
-const Loader =  lazy(() => import("../../components/loader"))
+import Loader from "../../components/loader"
 const Header =  lazy(() => import("../../components/header"))
 const ListingCard =  lazy(() => import("../../components/listingCard")) 
 
@@ -30,7 +30,7 @@ const Home = () => {
 
     return (
         <div className='home-container'>
-            <Suspense fallback={() => <div>Loading...</div>}>
+            <Suspense fallback={() => <Loader/>}>
                 <ErrorBoundary>
                     <Header page="all-listing" createListing={handleCreate}/>
                     {isLoading ?

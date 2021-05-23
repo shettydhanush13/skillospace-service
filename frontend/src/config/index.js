@@ -1,3 +1,3 @@
 export default {
-    baseUrl : "http://localhost:5000/api"
+    baseUrl : "https://cart-app-demo-backend.herokuapp.com/api"
 }

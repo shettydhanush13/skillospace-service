@@ -18,7 +18,6 @@
   "scripts": {
     "lint": "eslint src/**/*.js src/**/*.jsx",
     "prebuild": "npm run lint",
-    "postbuild": "purgecss --css build/static/css/*.css --content build/index.html build/static/js/*.js --output build/static/css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

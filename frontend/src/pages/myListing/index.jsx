@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState, lazy } from 'react';
 import ErrorBoundary from "../../errorBoundary"
 import { GetMyListing, Token } from '../../functions';
-const Loader =  lazy(() => import("../../components/loader"))
+import Loader from "../../components/loader"
 const Header =  lazy(() => import("../../components/header"))
 const ListingCard =  lazy(() => import("../../components/listingCard")) 
 const ConfirmationModal =  lazy(() => import("../../modals/confirmation"))
@@ -67,7 +67,7 @@ const MyListing = () => {
     }
 
     return (
-        <Suspense fallback={() => <div>Loading...</div>}>
+        <Suspense fallback={() => <Loader/>}>
             <ErrorBoundary>
                 {deleteConfirmation && <ConfirmationModal closeModal={handleModalClose} id={activeItem.id}/>}
                 {edit && <EditListingModal closeModal={handleEditModalClose} id={activeItem.id} quantity={activeItem.quantity} price={activeItem.price}/>}

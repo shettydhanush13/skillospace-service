@@ -3,6 +3,7 @@ import { Login, Signup } from "../../functions"
 import { useHistory } from "react-router-dom";
 import ErrorBoundary from "../../errorBoundary"
 import "./styles.scss"
+import Loader from "../../components/loader";
 const Header =  lazy(() => import("../../components/header"))
 const RegisterForm =  lazy(() => import("../../components/forms/loginForm")) 
 
@@ -33,7 +34,7 @@ const Register = () => {
     }
 	
 	return ( 
-		<Suspense fallback={<div>error occured</div>}>
+		<Suspense fallback={<Loader/>}>
 			<ErrorBoundary>
 			    <Header page="register"/>
 				<section className='container'>
