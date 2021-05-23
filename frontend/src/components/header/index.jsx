@@ -10,12 +10,19 @@ const Header = ({ page, createListing }) => {
 
     const [createModal, setCreateModal] = useState(false)
 
+    const accessToken = localStorage.getItem("accessToken")
+    const authenicated = accessToken !== null
+
     const history = useHistory()
 
-    const handleLogout = () => {
+    const handleRegister = () => {
+        console.log(authenicated)
+        authenicated ?
         Logout()
         .then(() => history.push("/register"))
         .catch(err => console.log(err))
+        :
+        history.push("/register")
     }
 
     const handleModalClose = reload => {
@@ -24,7 +31,10 @@ const Header = ({ page, createListing }) => {
     }
 
     const handleModalOpen = () => {
+        authenicated ?
         setCreateModal(true)
+        :
+        history.push("/register")
     }
 
     return (
@@ -33,7 +43,7 @@ const Header = ({ page, createListing }) => {
             <nav className='header-links'>
                 {page !== "register" &&<button  onClick={handleModalOpen}>Create Listing</button>}
                 <Link to={`/${page === "all-listing" ? "my-listing" : ""}`}>{page === "all-listing" ? "My Listings" : "All Listing"}</Link>
-                {page !== "register" && <button  onClick={handleLogout}>Sign Out</button>}
+                {page !== "register" && <button  onClick={handleRegister}>{authenicated ? "Sign Out" : "Sign In"}</button>}
             </nav>
         </header>
     );

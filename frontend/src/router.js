@@ -4,6 +4,7 @@ import "./styles.css"
 import Home from "./pages/home"
 import Register from "./pages/register"
 import MyListing from "./pages/myListing"
+import ProtectedRoute from "./protectedRoutes"
 
 const Router = () => {
   return (
@@ -11,7 +12,7 @@ const Router = () => {
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/register" component={Register}/>
-        <Route exact path="/my-listing" component={MyListing}/>
+        <ProtectedRoute exact path="/my-listing" component={MyListing}/>
         <Route exact path="/*" component={Home}/>
       </Switch>
     </BrowserRouter>
