@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import Header from "../../components/header"
+import React, { Suspense, useEffect, useState, lazy } from 'react';
+import ErrorBoundary from "../../errorBoundary"
 import { GetMyListing, Token } from '../../functions';
-import ListingCard from "../../components/listingCard"
-import Loader from "../../components/loader"
-import { ConfirmationModal, EditListingModal } from "../../modals"
-import "./styles.scss"
+const Loader =  lazy(() => import("../../components/loader"))
+const Header =  lazy(() => import("../../components/header"))
+const ListingCard =  lazy(() => import("../../components/listingCard")) 
+const ConfirmationModal =  lazy(() => import("../../modals/confirmation"))
+const EditListingModal =  lazy(() => import("../../modals/editListing"))
 
 const MyListing = () => {
 
@@ -66,23 +67,25 @@ const MyListing = () => {
     }
 
     return (
-        <>
-            {deleteConfirmation && <ConfirmationModal closeModal={handleModalClose} id={activeItem.id}/>}
-            {edit && <EditListingModal closeModal={handleEditModalClose} id={activeItem.id} quantity={activeItem.quantity} price={activeItem.price}/>}
-            <div className='home-container'>
-                <Header page="my-listing" createListing={handleCreate}/>
-                {isLoading ?
-                    <Loader/>
-                    :
-                    <>
-                    <h1>MY LISTINGS</h1>
-                    <section className="listing-container">
-                        {myListing.map(list => <ListingCard key={list.id} list={list} page="my-listing" editListing={handleEdit} deleteListing={handleDelete}/>)}
-                    </section>
-                    </>
-                }
-            </div>
-        </>
+        <Suspense fallback={() => <div>Loading...</div>}>
+            <ErrorBoundary>
+                {deleteConfirmation && <ConfirmationModal closeModal={handleModalClose} id={activeItem.id}/>}
+                {edit && <EditListingModal closeModal={handleEditModalClose} id={activeItem.id} quantity={activeItem.quantity} price={activeItem.price}/>}
+                <div className='home-container'>
+                    <Header page="my-listing" createListing={handleCreate}/>
+                    {isLoading ?
+                        <Loader/>
+                        :
+                        <>
+                        <h1>MY LISTINGS</h1>
+                        <section className="listing-container">
+                            {myListing.map(list => <ListingCard key={list.id} list={list} page="my-listing" editListing={handleEdit} deleteListing={handleDelete}/>)}
+                        </section>
+                        </>
+                    }
+                </div>
+            </ErrorBoundary>
+        </Suspense>
     );
 }
 

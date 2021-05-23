@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import Header from "../../components/header"
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { GetAllListing } from "../../functions"
-import Loader from "../../components/loader"
-import ListingCard from "../../components/listingCard"
+import ErrorBoundary from "../../errorBoundary"
 import "./styles.scss"
+const Loader =  lazy(() => import("../../components/loader"))
+const Header =  lazy(() => import("../../components/header"))
+const ListingCard =  lazy(() => import("../../components/listingCard")) 
 
 const Home = () => {
 
@@ -29,17 +30,21 @@ const Home = () => {
 
     return (
         <div className='home-container'>
-            <Header page="all-listing" createListing={handleCreate}/>
-            {isLoading ?
-                <Loader/>
-                :
-                <>
-                <h1>ALL LISTINGS</h1>
-                <section className="listing-container">
-                    {listing.map(list => <ListingCard key={list.id} list={list} page="all-listing"/>)}
-                </section>
-                </>
-            }
+            <Suspense fallback={() => <div>Loading...</div>}>
+                <ErrorBoundary>
+                    <Header page="all-listing" createListing={handleCreate}/>
+                    {isLoading ?
+                        <Loader/>
+                        :
+                        <>
+                        <h1>ALL LISTINGS</h1>
+                        <section className="listing-container">
+                            {listing.map(list => <ListingCard  key={list.id} list={list} page="all-listing"/>)}
+                        </section>
+                        </>
+                    }
+                </ErrorBoundary>
+            </Suspense>
         </div>
     );
 }

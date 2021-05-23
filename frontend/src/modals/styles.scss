@@ -52,3 +52,10 @@
     cursor: pointer;
   }
 }
+
+@media screen and (max-width: 768px){
+    .conf-modal {
+        width: 96%;
+		max-width: 100%;
+    }
+}

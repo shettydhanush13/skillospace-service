@@ -4,6 +4,7 @@ import "./styles.css"
 import Home from "./pages/home"
 import Register from "./pages/register"
 import ProtectedRoute from "./protectedRoutes"
+
 const MyListing = lazy(() => import("./pages/myListing")) 
 
 const Router = () => {

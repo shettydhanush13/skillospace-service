@@ -12,4 +12,12 @@
     padding: 2vw;
     flex-wrap: wrap;
 }
+
+@media screen and (max-width: 768px){
+    .home-container {
+        h1{
+            font-size: 1.5em;
+        }
+    }
+}
   

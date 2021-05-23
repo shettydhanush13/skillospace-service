@@ -23,3 +23,15 @@ header {
 		cursor: pointer;
 	}
 }
+
+@media screen and (max-width: 768px){
+    .header-links {
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+		a, button {
+			font-size: 0.8em;
+			margin: 0;
+		}
+	}
+}
