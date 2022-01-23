@@ -29,7 +29,7 @@ module.exports = {
             const accessToken = generateAccessToken(user);
             const refreshToken = generateRefreshToken(user);
             await updateDB(generateQuery.addToken(refreshToken))
-            res.status(200).json({ accessToken, refreshToken });
+            res.status(200).json({ accessToken, refreshToken, ...{ username: user.user_name } });
         } catch(err) {
             next({status : 500, message : err.stack })
         }
