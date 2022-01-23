@@ -1,5 +1,5 @@
 {
-  "name": "cart-app-demo-backend",
+  "name": "skillospace-service",
   "version": "1.0.0",
   "description": "nodejs backend server for the demo cart app",
   "main": "index.js",
