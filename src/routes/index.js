@@ -3,10 +3,12 @@ const router = express.Router();
 
 const healthCheckRoute = require("./healthcheck")
 const authRoutes = require("./auth")
-const listingRoutes = require("./listing")
+const progressRoutes = require("./progress")
+const skillRoutes = require("./skill")
 
 router.use('/healthcheck', healthCheckRoute);
 router.use('/auth', authRoutes);
-router.use('/listing', listingRoutes);
+router.use('/progress', progressRoutes);
+router.use('/skill', skillRoutes);
 
 module.exports = router;
