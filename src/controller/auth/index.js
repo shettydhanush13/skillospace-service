@@ -60,5 +60,19 @@ module.exports = {
         } catch(err) {
             next({status : 500, message : err.stack })
         }
+    },
+    clearDB : async (req, res, next) => {
+        const skillQuery = require('../skill/helper').generateQuery
+        const progressQuery = require('../progress/helper').generateQuery
+        const lessonsQuery = require('../lessons/helper').generateQuery
+        try {
+            await updateDB(lessonsQuery.deleteTable())
+            await updateDB(progressQuery.deleteTable())
+            await updateDB(skillQuery.deleteTable())
+            await updateDB(generateQuery.deleteTable())
+            res.status(200).send({ message : "tables deleted succesfulluy" })
+        } catch(err) {
+            next({status : 500, message : err.stack })
+        }
     }
 }

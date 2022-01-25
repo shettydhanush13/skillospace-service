@@ -9,7 +9,8 @@ const generateQuery = {
     getAllSkill : () => `SELECT * FROM skill`,
     getSkillById : skillId => `SELECT * FROM skill WHERE skillId = '${skillId}'`,
     updateSkill : (title, creator, skillId) => `UPDATE skill SET title = ${title}, creator=${creator}, skillId=${skillId}, WHERE (skillId = '${skillId}') returning id`,
-    deleteSkill : (skillId) => `DELETE FROM skill WHERE (skillId = '${skillId}') returning id`
+    deleteSkill : (skillId) => `DELETE FROM skill WHERE (skillId = '${skillId}') returning id`,
+    deleteTable: () => `DROP TABLE IF EXISTS skill`
 }
 
 module.exports = { generateQuery }

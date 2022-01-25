@@ -49,7 +49,8 @@ const generateQuery = {
       )`,
     addToken : token => `INSERT INTO refreshtoken (token) VALUES ('${token}')`,
     deleteToken : token => `DELETE FROM refreshtoken WHERE token = '${token}'`,
-    getToken : token => `SELECT * FROM refreshtoken  WHERE token = '${token}'`
+    getToken : token => `SELECT * FROM refreshtoken  WHERE token = '${token}'`,
+    deleteTable: () => `DROP TABLE IF EXISTS users`
 }
 
 module.exports = { generateQuery, compare, generateAccessToken, generateRefreshToken, verifyRefreshToken, verifyAccessToken }

@@ -2,42 +2,42 @@ const { generateQuery } = require("./helper")
 const { updateDB } = require("../../db/postgres")
 
 module.exports = {
-    addProgress : async (req, res, next) => {
+    addLesson : async (req, res, next) => {
         try {
-            const { username, progress, title } = req.body
-            await updateDB(generateQuery.createProgressTable())
-            await updateDB(generateQuery.addProgress(username, progress, title))
-            res.status(200).send({ message : "progress updated" })
+            const { skillId, url, title, thumb } = req.body
+            await updateDB(generateQuery.createLessonsTable())
+            await updateDB(generateQuery.addLesson(skillId, url, title, thumb))
+            res.status(200).send({ message : "lesson updated" })
         } catch(err) {
+            console.log(err)
             next({status : 500, message : err.stack })
         }
     },
-    getMyProgress : async (req, res, next) => {
+    getLessonsBySkill : async (req, res, next) => {
         try {
-            const { username } = req.body
-            const response = await updateDB(generateQuery.getMyProgress(username))
+            const { skillId } = req.params
+            const response = await updateDB(generateQuery.getLessonsBySkill(skillId))
             res.status(200).send({ items : response.rows })
         } catch(err) {
             next({status : 500, message : err.stack })
         }
     },
-    updateProgress : async (req, res, next) => {
+    updateLesson : async (req, res, next) => {
         try {
-            const { username, progress } = req.body
-            const { progressId } = req.params
-            const response = await updateDB(generateQuery.updateProgress(progressId, username, progress))
-            if(response.rows.length === 0) return next({status : 401, message : "unable to update this progress" })
+            const { skillId, url, title, thumb } = req.body
+            const { lessonId } = req.params
+            const response = await updateDB(generateQuery.updateLesson(lessonId, skillId, url, title, thumb))
+            if(response.rows.length === 0) return next({status : 401, message : "unable to update this lesson" })
             res.status(200).send({ items : "update successful" })
         } catch(err) {
             next({status : 500, message : err.stack })
         }
     },
-    deleteProgress : async (req, res, next) => {
+    deleteLesson : async (req, res, next) => {
         try {
-            const { username } = req.body
-            const { progressId } = req.params
-            const response = await updateDB(generateQuery.deleteProgress(progressId, username))
-            if(response.rows.length === 0) return next({status : 401, message : "unable to delete this progress" })
+            const { lessonId } = req.params
+            const response = await updateDB(generateQuery.deleteLesson(lessonId))
+            if(response.rows.length === 0) return next({status : 401, message : "unable to delete this lesson" })
             res.status(200).send({ items : "delete successful" })
         } catch(err) {
             next({status : 500, message : err.stack })

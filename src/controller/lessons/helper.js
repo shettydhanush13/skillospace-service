@@ -1,15 +1,20 @@
 const generateQuery = {
     createLessonsTable : () => `CREATE TABLE IF NOT EXISTS lesson (
         id serial primary key,
-        title varchar(50) NOT NULL,
-        thumb varchar(50) NOT NULL,
-        url varchar(50) NOT NULL,
-        skillId varchar(50) REFERENCES skill (skillId) ON DELETE CASCADE,
+        title varchar(500) NOT NULL,
+        thumb varchar(500),
+        url varchar(500) NOT NULL,
+        skillId varchar(50) REFERENCES skill (skillid) ON DELETE CASCADE,
       )`,
-    addProgress : (skillId, url, title, thumb) => `INSERT INTO progress (skillId, url, title, thumb) VALUES ('${skillId}', '${url}', '${title}', '${thumb}')`,
-    getLessonsBySkill : skillId => `SELECT * FROM progress WHERE skillId = '${skillId}'`,
-    updateLesson : (skillId, url, title, thumb) => `UPDATE progress SET url = ${url}, title=${title}, thumb=${thumb} WHERE (skillId = '${skillId}') returning id`,
-    deleteLesson : (id) => `DELETE FROM progress WHERE (id = '${id}') returning id`
+    addLesson : (skillId, url, title, thumb) => {
+      console.log({ skillId, url, title, thumb })
+      console.log(`INSERT INTO lesson (skillId, url, title, thumb) VALUES ('${skillId}', '${url}', '${title}', '${thumb}')`)
+      return `INSERT INTO lesson (skillId, url, title, thumb) VALUES ('${skillId}', '${url}', '${title}', '${thumb}')`
+    },
+    getLessonsBySkill : skillId => `SELECT * FROM lesson WHERE skillId = '${skillId}'`,
+    updateLesson : (lessonId, skillId, url, title, thumb) => `UPDATE lesson SET url = ${url}, title=${title}, thumb=${thumb}, skillId=${skillId} WHERE (id = '${lessonId}') returning id`,
+    deleteLesson : (id) => `DELETE FROM lesson WHERE (id = '${id}') returning id`,
+    deleteTable: () => `DROP TABLE IF EXISTS lesson`
 }
 
 module.exports = { generateQuery }
