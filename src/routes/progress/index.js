@@ -4,8 +4,8 @@ const authenticate = require("../../core/authentication")
 
 const { addProgress, getMyProgress, getProgressBySkillId, updateProgress, deleteProgress } = require('../../controller/progress');
 
-router.post('/', addProgress);
-router.get('/myProgress', getMyProgress);
+router.post('/', authenticate, addProgress);
+router.get('/myProgress', authenticate, getMyProgress);
 router.get('/:skill_id', getProgressBySkillId);
 router.put('/:progressId', updateProgress);
 router.delete('/:progressId', deleteProgress);
