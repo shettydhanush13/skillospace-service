@@ -4,9 +4,9 @@ const { updateDB } = require("../../db/postgres")
 module.exports = {
     addProgress : async (req, res, next) => {
         try {
-            const { username, progress, title } = req.body
+            const { username, progress, skill_id } = req.body
             await updateDB(generateQuery.createProgressTable())
-            await updateDB(generateQuery.addProgress(username, progress, title))
+            await updateDB(generateQuery.addProgress(username, progress, skill_id))
             res.status(200).send({ message : "progress updated" })
         } catch(err) {
             next({status : 500, message : err.stack })

@@ -5,7 +5,7 @@ const authenticate = require("../../core/authentication")
 const { addLesson, getLessonsBySkill, updateLesson, deleteLesson } = require('../../controller/lessons');
 
 router.post('/', addLesson);
-router.get('/:skillId', getLessonsBySkill);
+router.get('/:skill_id', getLessonsBySkill);
 router.put('/:id', updateLesson);
 router.delete('/:id', deleteLesson);
 
