@@ -21,6 +21,15 @@ module.exports = {
             next({status : 500, message : err.stack })
         }
     },
+    getProgressBySkillId : async (req, res, next) => {
+        try {
+            const { skill_id } = req.params
+            const response = await updateDB(generateQuery.getProgressBySkillId(skill_id))
+            res.status(200).send({ items : response.rows })
+        } catch(err) {
+            next({status : 500, message : err.stack })
+        }
+    },
     updateProgress : async (req, res, next) => {
         try {
             const { username, progress } = req.body

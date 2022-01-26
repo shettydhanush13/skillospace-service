@@ -7,7 +7,11 @@ const generateQuery = {
       )`,
     addSkill : (title, creator, skill_id) => `INSERT INTO skill (title, creator, skill_id) VALUES ('${title}', '${creator}', '${skill_id}')`,
     getAllSkill : () => `SELECT * FROM skill`,
-    getSkillById : skill_id => `SELECT * FROM skill WHERE skill_id = '${skill_id}'`,
+    getSkillById : skill_id => `
+      SELECT * FROM skill
+      INNER JOIN lesson
+      ON lesson.skill_id = skill.skill_id
+      WHERE skill.skill_id = '${skill_id}'`,
     updateSkill : (title, creator, skill_id) => `UPDATE skill SET title = ${title}, creator=${creator}, skill_id=${skill_id}, WHERE (skill_id = '${skill_id}') returning id`,
     deleteSkill : (skill_id) => `DELETE FROM skill WHERE (skill_id = '${skill_id}') returning id`,
     deleteTable: () => `DROP TABLE IF EXISTS skill`

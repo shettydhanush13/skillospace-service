@@ -14,7 +14,15 @@ module.exports = {
     },
     getAllSkill : async (req, res, next) => {
         try {
+            const progressQuery = require('../progress/helper').generateQuery
             const response = await updateDB(generateQuery.getAllSkill())
+            if(response.rows.length > 0) {
+                for(let i = 0; i< response.rows.length; i++) {
+                    const id = response.rows[i].skill_id
+                    const progress = await updateDB(progressQuery.getProgressBySkillId(id))
+                    response.rows[i].progress = progress.rows
+                }
+            }
             res.status(200).send({ items : response.rows })
         } catch(err) {
             next({status : 500, message : err.stack })
