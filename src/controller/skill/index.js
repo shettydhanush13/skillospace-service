@@ -19,6 +19,7 @@ module.exports = {
             if(response.rows.length > 0) {
                 for(let i = 0; i< response.rows.length; i++) {
                     const id = response.rows[i].skill_id
+                    await updateDB(progressQuery.createProgressTable())
                     const progress = await updateDB(progressQuery.getProgressBySkillId(id))
                     response.rows[i].progress = progress.rows
                 }
