@@ -4,8 +4,7 @@ const generateQuery = {
         progress varchar(50) NOT NULL,
         user_name varchar(50) REFERENCES users (user_name),
         lessons varchar(50) NOT NULL,
-        skill_id varchar(50) REFERENCES skill (skill_id)
-      )`,
+        skill_id varchar(50) REFERENCES skill (skill_id))`,
     addProgress : (username, progress, skill_id, lessons) => `
         INSERT INTO progress (user_name, progress, skill_id, lessons)
         VALUES ('${username}', '${progress}', '${skill_id}', '${lessons}')`,
@@ -17,6 +16,9 @@ const generateQuery = {
     getProgressBySkillId : skill_id => `
         SELECT * FROM progress
         WHERE skill_id = '${skill_id}'`,
+    getProgressBySkillIdForUser : (skill_id, username) => `
+        SELECT lessons, progress FROM progress
+        WHERE skill_id = '${skill_id}' AND user_name = '${username}'`,
     updateProgress : (id, username, progress, lessons) => `
         UPDATE progress
         SET progress = '${progress}', lessons='${lessons}'

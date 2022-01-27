@@ -6,7 +6,7 @@ const { addSkill, getAllSkill, getSkillById, updateSkill, deleteSkill } = requir
 
 router.post('/', addSkill);
 router.get('/', getAllSkill)
-router.get('/:skill_id', getSkillById);
+router.get('/:skill_id', authenticate, getSkillById);
 router.put('/:skill_id', updateSkill);
 router.delete('/:skill_id', deleteSkill);
 
