@@ -7,7 +7,7 @@ const { addProgress, getMyProgress, getProgressBySkillId, updateProgress, delete
 router.post('/', authenticate, addProgress);
 router.get('/myProgress', authenticate, getMyProgress);
 router.get('/:skill_id', getProgressBySkillId);
-router.put('/:progressId', updateProgress);
+router.put('/:progressId', authenticate, updateProgress);
 router.delete('/:progressId', deleteProgress);
 
 module.exports = router;
