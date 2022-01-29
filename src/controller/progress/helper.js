@@ -17,7 +17,7 @@ const generateQuery = {
         SELECT * FROM progress
         WHERE skill_id = '${skill_id}'`,
     getProgressBySkillIdForUser : (skill_id, username) => `
-        SELECT lessons, progress FROM progress
+        SELECT id, lessons, progress FROM progress
         WHERE skill_id = '${skill_id}' AND user_name = '${username}'`,
     updateProgress : (id, username, progress, lessons) => `
         UPDATE progress
