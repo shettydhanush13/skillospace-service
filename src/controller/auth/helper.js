@@ -35,10 +35,9 @@ const verifyAccessToken = accessToken => {
 
 const generateQuery = {
     createUserTable : () => `CREATE TABLE IF NOT EXISTS users (
-        id serial primary key,
-        user_name varchar(50) NOT NULL unique,
-        password varchar(500) NOT NULL,
-        email varchar(50) NOT NULL unique
+        user_name varchar(50) PRIMARY KEY,
+        password varchar(5000) NOT NULL,
+        email varchar(50) UNIQUE NOT NULL
       )`,
     insertUser : async (username, email, password) => `INSERT INTO users (user_name, password, email) VALUES 
         ('${username}', '${await encode(password)}', '${email}')`,

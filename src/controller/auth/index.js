@@ -65,7 +65,9 @@ module.exports = {
         const skillQuery = require('../skill/helper').generateQuery
         const progressQuery = require('../progress/helper').generateQuery
         const lessonsQuery = require('../lessons/helper').generateQuery
+        const progressLessonsQuery = require('../progress_lesson/helper').generateQuery
         try {
+            await updateDB(progressLessonsQuery.deleteTable())
             await updateDB(lessonsQuery.deleteTable())
             await updateDB(progressQuery.deleteTable())
             await updateDB(skillQuery.deleteTable())
