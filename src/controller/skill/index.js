@@ -4,9 +4,9 @@ const { updateDB } = require("../../db/postgres")
 module.exports = {
     addSkill : async (req, res, next) => {
         try {
-            const { title, creator, skill_id } = req.body
+            const { skill_name, thumb, skill_id } = req.body
             await updateDB(generateQuery.createSkillTable())
-            await updateDB(generateQuery.addSkill(title, creator, skill_id))
+            await updateDB(generateQuery.addSkill(skill_name, thumb, skill_id))
             res.status(200).send({ message : "skill updated" })
         } catch(err) {
             next({status : 500, message : err.stack })
@@ -14,18 +14,11 @@ module.exports = {
     },
     getAllSkill : async (req, res, next) => {
         try {
-            const progressQuery = require('../progress/helper').generateQuery
+            await updateDB(generateQuery.createSkillTable())
             const response = await updateDB(generateQuery.getAllSkill())
-            if(response.rows.length > 0) {
-                for(let i = 0; i< response.rows.length; i++) {
-                    const id = response.rows[i].skill_id
-                    await updateDB(progressQuery.createProgressTable())
-                    const progress = await updateDB(progressQuery.getProgressBySkillId(id))
-                    response.rows[i].progress = progress.rows
-                }
-            }
             res.status(200).send({ items : response.rows })
         } catch(err) {
+            console.log(err)
             next({status : 500, message : err.stack })
         }
     },
@@ -55,8 +48,8 @@ module.exports = {
     updateSkill : async (req, res, next) => {
         try {
             const { skill_id } = req.params
-            const { title, creator } = req.body
-            const response = await updateDB(generateQuery.updateSkill(title, creator, skill_id))
+            const { skill_name, thumb } = req.body
+            const response = await updateDB(generateQuery.updateSkill(skill_name, thumb, skill_id))
             if(response.rows.length === 0) return next({status : 401, message : "unable to update this skill" })
             res.status(200).send({ items : "update successful" })
         } catch(err) {

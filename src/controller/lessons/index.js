@@ -4,9 +4,9 @@ const { updateDB } = require("../../db/postgres")
 module.exports = {
     addLesson : async (req, res, next) => {
         try {
-            const { skill_id, url, title, thumb } = req.body
+            const { creator, skill_id, lesson_url, lesson_title, lesson_thumb } = req.body
             await updateDB(generateQuery.createLessonsTable())
-            await updateDB(generateQuery.addLesson(skill_id, url, title, thumb))
+            await updateDB(generateQuery.addLesson(creator, skill_id, lesson_url, lesson_title, lesson_thumb))
             res.status(200).send({ message : "lesson updated" })
         } catch(err) {
             console.log(err)
@@ -24,9 +24,9 @@ module.exports = {
     },
     updateLesson : async (req, res, next) => {
         try {
-            const { skill_id, url, title, thumb } = req.body
-            const { lessonId } = req.params
-            const response = await updateDB(generateQuery.updateLesson(lessonId, skill_id, url, title, thumb))
+            const { creator, skill_id, lesson_url, lesson_title, lesson_thumb } = req.body
+            const { lesson_id } = req.params
+            const response = await updateDB(generateQuery.updateLesson(lesson_id, creator, skill_id, lesson_url, lesson_title, lesson_thumb))
             if(response.rows.length === 0) return next({status : 401, message : "unable to update this lesson" })
             res.status(200).send({ items : "update successful" })
         } catch(err) {
@@ -35,8 +35,8 @@ module.exports = {
     },
     deleteLesson : async (req, res, next) => {
         try {
-            const { lessonId } = req.params
-            const response = await updateDB(generateQuery.deleteLesson(lessonId))
+            const { lesson_id } = req.params
+            const response = await updateDB(generateQuery.deleteLesson(lesson_id))
             if(response.rows.length === 0) return next({status : 401, message : "unable to delete this lesson" })
             res.status(200).send({ items : "delete successful" })
         } catch(err) {

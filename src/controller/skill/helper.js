@@ -1,17 +1,25 @@
 const generateQuery = {
     createSkillTable : () => `CREATE TABLE IF NOT EXISTS skill (
-        id serial primary key,
-        title varchar(50) NOT NULL,
-        creator varchar(50) NOT NULL,
-        skill_id varchar(50) NOT NULL unique
+        skill_id varchar(50) PRIMARY KEY,
+        skill_name varchar(50) NOT NULL,
+        thumb varchar(500)
       )`,
-    addSkill : (title, creator, skill_id) => `INSERT INTO skill (title, creator, skill_id) VALUES ('${title}', '${creator}', '${skill_id}')`,
-    getAllSkill : () => `SELECT * FROM skill`,
+    addSkill : (skill_name, thumb, skill_id) => `INSERT INTO skill (skill_name, thumb, skill_id) VALUES ('${skill_name}', '${thumb}', '${skill_id}')`,
+    getAllSkill : () => `
+      SELECT
+        s.skill_name,
+        s.thumb,
+        s.skill_id,
+        ARRAY_AGG(DISTINCT p.progress_id) as progress
+      FROM skill s
+      FULL OUTER JOIN progress p
+        ON p.skill_id = s.skill_id
+      GROUP BY s.skill_name, s.thumb, s.skill_id`,
     getSkillById : skill_id => `
-      SELECT * FROM skill
-      WHERE skill.skill_id = '${skill_id}'`,
-    updateSkill : (title, creator, skill_id) => `UPDATE skill SET title = ${title}, creator=${creator}, skill_id=${skill_id}, WHERE (skill_id = '${skill_id}') returning id`,
-    deleteSkill : (skill_id) => `DELETE FROM skill WHERE (skill_id = '${skill_id}') returning id`,
+      SELECT skill_name, thumb, skill_id FROM skill
+      WHERE skill_id = '${skill_id}'`,
+    updateSkill : (skill_name, thumb, skill_id) => `UPDATE skill SET skill_name = ${skill_name}, thumb=${thumb}, skill_id=${skill_id}, WHERE (skill_id = '${skill_id}')`,
+    deleteSkill : (skill_id) => `DELETE FROM skill WHERE (skill_id = '${skill_id}')`,
     deleteTable: () => `DROP TABLE IF EXISTS skill`
 }
 
