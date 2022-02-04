@@ -26,21 +26,8 @@ module.exports = {
         try {
             const { skill_id } = req.params
             const { username } = req.body
-            const response = await updateDB(generateQuery.getSkillById(skill_id))
-            const lessonsQuery = require('../lessons/helper').generateQuery
-            const progressQuery = require('../progress/helper').generateQuery
-            if(response.rows.length > 0) {
-                for(let i = 0; i< response.rows.length; i++) {
-                    const id = response.rows[i].skill_id
-                    await updateDB(lessonsQuery.createLessonsTable())
-                    await updateDB(progressQuery.createProgressTable())
-                    const progress = await updateDB(progressQuery.getProgressBySkillIdForUser(id, username))
-                    const lessons = await updateDB(lessonsQuery.getLessonsBySkill(id))
-                    response.rows[i].lessons = lessons.rows
-                    response.rows[i].progress = progress.rows[0]
-                }
-            }
-            res.status(200).send({ items : response.rows })
+            const response = await updateDB(generateQuery.getSkillById(skill_id, username))
+            res.status(200).send({ items : response.rows[0] || null })
         } catch(err) {
             next({status : 500, message : err.stack })
         }
