@@ -36,10 +36,10 @@ module.exports = {
     deleteLesson : async (req, res, next) => {
         try {
             const { lesson_id } = req.params
-            const response = await updateDB(generateQuery.deleteLesson(lesson_id))
-            if(response.rows.length === 0) return next({status : 401, message : "unable to delete this lesson" })
+            await updateDB(generateQuery.deleteLesson(lesson_id))
             res.status(200).send({ items : "delete successful" })
         } catch(err) {
+            console.log(err)
             next({status : 500, message : err.stack })
         }
     }

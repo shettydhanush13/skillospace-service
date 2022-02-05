@@ -4,9 +4,9 @@ const authenticate = require("../../core/authentication")
 
 const { addLesson, getLessonsBySkill, updateLesson, deleteLesson } = require('../../controller/lessons');
 
-router.post('/', authenticate, addLesson);
-router.get('/:skill_id', authenticate, getLessonsBySkill);
-router.put('/:lesson_id', authenticate, updateLesson);
-router.delete('/:lesson_id', authenticate, deleteLesson);
+router.post('/', addLesson);
+router.get('/:skill_id', getLessonsBySkill);
+router.put('/:lesson_id', updateLesson);
+router.delete('/:lesson_id', deleteLesson);
 
 module.exports = router;
