@@ -6,7 +6,7 @@ const { addProgress, getMyProgress, getProgressBySkillId, deleteProgress } = req
 
 router.post('/', authenticate, addProgress);
 router.get('/myProgress', authenticate, getMyProgress);
-router.get('/:skill_id', authenticate, getProgressBySkillId);
-router.delete('/:progressId', authenticate, deleteProgress);
+router.get('/:skill_id', getProgressBySkillId);
+router.delete('/:progressId', deleteProgress);
 
 module.exports = router;

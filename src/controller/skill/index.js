@@ -26,7 +26,10 @@ module.exports = {
         try {
             const { skill_id } = req.params
             const { username } = req.body
+            const progress_lessonQuery = require('../progress_lesson/helper').generateQuery
             const response = await updateDB(generateQuery.getSkillById(skill_id, username))
+            const response2 = await updateDB(progress_lessonQuery.getProgressLesson(response.rows[0].progress_id))
+            response.rows[0].json_build_object.completed_lessons = response2.rows[0]?.lessons || []
             res.status(200).send({ items : response.rows[0] || null })
         } catch(err) {
             next({status : 500, message : err.stack })

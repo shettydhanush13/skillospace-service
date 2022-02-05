@@ -19,19 +19,17 @@ const generateQuery = {
       SELECT
         s.skill_name,
         s.skill_id,
+        p.progress_id,
         json_build_object(
-          'all_lessons', ARRAY_AGG(DISTINCT l.*),
-          'completed_lessons', ARRAY_AGG(DISTINCT pl.lesson_id)
+          'all_lessons', ARRAY_AGG(DISTINCT l.*)
         )
       FROM skill s
       INNER JOIN lesson l
         ON s.skill_id = l.skill_id
       INNER JOIN progress p
         ON s.skill_id = p.skill_id
-      INNER JOIN progress_lesson pl
-        ON p.progress_id = pl.progress_id
       WHERE (s.skill_id = '${skill_id}' AND p.user_name = '${username}')
-      GROUP BY s.skill_name, s.skill_id`,
+      GROUP BY s.skill_name, s.skill_id, p.progress_id`,
     updateSkill : (skill_name, thumb, skill_id) => `UPDATE skill SET skill_name = ${skill_name}, thumb=${thumb}, skill_id=${skill_id}, WHERE (skill_id = '${skill_id}')`,
     deleteSkill : (skill_id) => `DELETE FROM skill WHERE (skill_id = '${skill_id}')`,
     deleteTable: () => `DROP TABLE IF EXISTS skill`

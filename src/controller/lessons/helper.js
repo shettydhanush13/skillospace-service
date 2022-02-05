@@ -20,7 +20,7 @@ const generateQuery = {
       skill_id = '${skill_id}'
       WHERE (lesson_id = ${Number(lesson_id)})
     `,
-    deleteLesson : (lesson_id) => `DELETE FROM lesson WHERE (lesson_id = '${lesson_id}')`,
+    deleteLesson : (lesson_id) => `DELETE FROM lesson WHERE (lesson_id = ${lesson_id})`,
     deleteTable: () => `DROP TABLE IF EXISTS lesson`
 }
 
